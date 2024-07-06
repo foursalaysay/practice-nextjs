@@ -17,7 +17,7 @@ const Sidebar = () => {
         sidebarLinks.map((link) =>{
 
             // NEED CHANGES HERE BECAUSE THE HOME IS STILL BLUE
-            const isActive = pathname === link.route;
+            const isActive = pathname === link.route || pathname.startsWith(`${link.route}/`);
 
             return(
                 <Link
