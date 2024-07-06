@@ -1,0 +1,20 @@
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Progress: resolved 134, reused 128, downloaded 3, added 0
+Progress: resolved 419, reused 392, downloaded 24, added 0
+Progress: resolved 466, reused 401, downloaded 37, added 0
+Progress: resolved 498, reused 418, downloaded 60, added 0
+ WARN  5 deprecated subdependencies found: @humanwhocodes/config-array@0.11.14, @humanwhocodes/object-schema@2.0.3, glob@7.2.3, inflight@1.0.6, rimraf@3.0.2
+Packages: +73
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 498, reused 418, downloaded 62, added 73, done
+.../node_modules/@swc/core postinstall$ node postinstall.js
+.../node_modules/@swc/core postinstall: Done
+
+dependencies:
++ @swc/core 1.6.13
++ eslint-plugin-jsdoc 48.5.2
++ sass-loader 12.4.0 (14.2.1 is available)
++ terser-webpack-plugin 5.3.9 (5.3.10 is available)
++ webpack 5.92.1
+
+Done in 5.9s

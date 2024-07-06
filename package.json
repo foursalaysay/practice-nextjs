@@ -12,14 +12,20 @@
     "@clerk/nextjs": "^5.2.2",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@stream-io/video-react-sdk": "^1.2.13",
+    "@swc/core": "^1.2.66",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "eslint-plugin-jsdoc": "^48.5.2",
     "lucide-react": "^0.400.0",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
+    "sass-loader": "12.4.0",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "terser-webpack-plugin": "5.3.9",
+    "webpack": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
