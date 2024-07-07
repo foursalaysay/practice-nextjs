@@ -1,4 +1,4 @@
-import { CallControls, CallParticipantsList, PaginatedGridLayout, SpeakerLayout } from '@stream-io/video-react-sdk'
+import { CallControls, CallingState, CallParticipantsList, CallStatsButton, PaginatedGridLayout, SpeakerLayout, useCallStateHooks } from '@stream-io/video-react-sdk'
 import React from 'react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
@@ -11,14 +11,27 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import { LayoutList } from 'lucide-react'
+import { User } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import EndCallButton from './EndCallButton'
+import Loader from './Loader'
   
 
 const MeetingRoom = () => {
 
-    type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
+    const searchParams = useSearchParams();
+    const isPersonalRoom = !!searchParams.get('personal')
+
+type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 
 const [layout, setLayout] = useState<CallLayoutType>('speaker-left')
 const [showParticipants, setshowParticipants] = useState(false)
+
+const { useCallCallingState } = useCallStateHooks();
+const callingState = useCallCallingState();
+
+if(callingState !== CallingState.JOINED) return <Loader />
 
 const CallLayout = () => {
     switch(layout){
@@ -44,13 +57,56 @@ const CallLayout = () => {
             </div>
         </div>
 
-        <div className='fixed bottom-0 flex w-full items-center justify-center gap-5'>
+        <div className='fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap'>
                 <CallControls />
+
+<DropdownMenu>
+
+
+                <div className='flex items-center'>
+                <DropdownMenuTrigger className='cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]'>
+                    <LayoutList size={20}
+                    className='text-white'
+                    />
+                </DropdownMenuTrigger>
+
+                </div>
+
                 
+                   
+                    <DropdownMenuContent className='border-dark-1 bg-dark-1 text-white'>
+                        {['Grid', 'Speaker-Left', 'Speaker-Right'].map(
+                            (item, index) => (
+                                <div key={index}>
+                                    <DropdownMenuItem
+                                    className='cursor-pointer'
+                                    onClick={() => {
+                                        setLayout(item.toLowerCase() as CallLayoutType)
+                                    }}
+                                    >
+                                        {item}
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator className='border-dark-1'/>
+
+                                </div>
+                            )
+                        )}
+                    </DropdownMenuContent>
+                    </DropdownMenu>
+                    <CallStatsButton />
+                    <button onClick={() => {
+                            setshowParticipants((prev) => (!prev))
+                        }}> 
+                            <div className='cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]'>
+                                <User size={20} className='text-white'/>
+                            </div>
+                    </button>
+                    {!isPersonalRoom && <EndCallButton />}
         </div>
+        
 
     </section>
-  )
+)
 }
 
 export default MeetingRoom
