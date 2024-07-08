@@ -8,13 +8,15 @@ import { useRouter } from 'next/navigation';
 import Loader  from './Loader';
 import { Call, CallRecording } from '@stream-io/video-react-sdk';
 import MeetingCard from './MeetingCard';
+import { useEffect } from 'react';
+import { useToast } from './ui/use-toast';
 
 const CallList = ({type} : {type : 'ended' | 'upcoming' | 'recordings'}) => {
 
   const { endedCalls, upcomingCalls, callRecordings, isLoading } = useGetCalls();
   const router = useRouter();
-
-  if (isLoading) return <Loader />
+  const { toast } = useToast();
+  
   
   const getCalls = () => {
     switch(type){
@@ -43,8 +45,29 @@ const CallList = ({type} : {type : 'ended' | 'upcoming' | 'recordings'}) => {
     }
   }
 
+  useEffect(() => {
+    try {
+      const fetchRecordings = async () => {
+        const callData = await Promise.all(callRecordings.map((meeting) => meeting.queryRecordings()))
+  
+        const recordings = callData
+          .filter(call => call.recordings.length > 0)
+          .flatMap(call => call.recordings)
+        setRecordings(recordings);
+      }
+   if(type === 'recordings') fetchRecordings();
+    } catch (error) {
+      toast({
+        title : "Try Again Later"
+      })
+    }
+   
+  },[callRecordings, type, toast])
+
   const calls = getCalls();
   const noCalls = getNoCalls();
+
+  if (isLoading) return <Loader />
 
 
   return (
@@ -58,10 +81,10 @@ const CallList = ({type} : {type : 'ended' | 'upcoming' | 'recordings'}) => {
           : '/icons/recordings.svg'
         }
         title={
-          (meeting as Call).state.custom.description.substring(0,26) || 'No Description'
+          (meeting as Call).state?.custom?.description?.substring(0,26) || meeting?.filename?.substring(0, 20) || 'No Description'
         }
         date={
-          meeting.state.startsAt.toLocaleString() || meeting.start_time.toLocaleString()
+          meeting.state.startsAt?.toLocaleString() || meeting.start_time.toLocaleString()
         }
         isPreviousMeeting={type === 'ended'}
         buttonIcon1={type === 'recordings' ? '/icons/play.svg' : undefined}

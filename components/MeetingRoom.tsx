@@ -16,12 +16,15 @@ import { User } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import EndCallButton from './EndCallButton'
 import Loader from './Loader'
+import { useRouter } from 'next/router'
   
 
 const MeetingRoom = () => {
 
-    const searchParams = useSearchParams();
-    const isPersonalRoom = !!searchParams.get('personal')
+const router = useRouter();
+
+const searchParams = useSearchParams();
+const isPersonalRoom = !!searchParams.get('personal')
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 
@@ -44,6 +47,8 @@ const CallLayout = () => {
     }
 }
 
+
+
   return (
     <section className='relative h-screen w-full overflow-hidden pt-4 text-white'>
         <div className='relative flex size-full items-center justify-center'>
@@ -58,7 +63,7 @@ const CallLayout = () => {
         </div>
 
         <div className='fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap'>
-                <CallControls />
+                <CallControls  onLeave={() => router.push('/')}/>
 
 <DropdownMenu>
 

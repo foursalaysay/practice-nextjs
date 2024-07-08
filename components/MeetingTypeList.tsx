@@ -98,7 +98,7 @@ const MeetingTypeList = () => {
                 img='/icons/recordings.svg'
                 title="View Recordings"
                 description="Check our your recording"
-                handleClick={() => setMeetingState('isJoiningMeeting')}
+                handleClick={() => router.push('/recordings')}
                 className='bg-purple-1'
             />
             <HomeCard
