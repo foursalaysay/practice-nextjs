@@ -1,6 +1,7 @@
 import { useUser } from "@clerk/nextjs"
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk"
 import { useEffect, useState } from "react"
+import { startupSnapshot } from "v8"
 
 
 export const useGetCalls = () => {
@@ -19,7 +20,7 @@ export const useGetCalls = () => {
             try {
                 const { calls } = await client.queryCalls({
                     sort : [{
-                        field : 'starts_at', direction : -1
+                        field : 'starts_at', direction : - 1
                     }],
                     filter_conditions :{
                         starts_at : {
@@ -42,16 +43,24 @@ export const useGetCalls = () => {
             }
         }
         loadCalls();
+    }, [client, user, user?.id, calls])
 
-        const endedCalls;
-        const upcomingCalls;
-        const recordings;
+
+        // FILTERING THROUGHT CALL LOGIC
+
+        const now = new Date();
+        const endedCalls = calls.filter(({ state : {startsAt , endedAt}} : Call) => {
+            return (startsAt && new Date(startsAt) < now || !!endedAt)
+        })
+
+        const upcomingCalls = calls.filter(({state : {startsAt}} : Call) => {
+            return startsAt && new Date(startsAt) > now
+        })
 
         return {
             endedCalls,
             upcomingCalls,
-            recordings : calls,
+            callRecordings : calls,
             isLoading
         }
-    }, [client, user, user?.id])
 }
