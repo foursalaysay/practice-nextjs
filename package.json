@@ -16,29 +16,30 @@
     "@radix-ui/react-toast": "^1.2.1",
     "@stream-io/node-sdk": "^0.3.0",
     "@stream-io/video-react-sdk": "^1.2.13",
-    "@swc/core": "^1.2.66",
+    "@swc/core": "^1.6.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "eslint-plugin-jsdoc": "^48.5.2",
     "lucide-react": "^0.400.0",
     "next": "14.2.4",
-    "react": "^18",
-    "react-datepicker": "^7.2.0",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-datepicker": "^7.3.0",
+    "react-dom": "^18.3.1",
     "sass-loader": "12.4.0",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "terser-webpack-plugin": "5.3.9",
-    "webpack": "^5.0.0"
+    "webpack": "^5.92.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.2.4",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.3",
+    "webpack-node-externals": "^3.0.0"
   }
 }

@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 const apiSecret = process.env.STREAM_SECRET_KEY;
 
-const tokenProvider = async () => {
+export const tokenProvider = async () => {
     const user = await currentUser();
 
     if (!user) throw new Error("User is not present");
